@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import SushiContainer from './containers/SushiContainer';
 import Table from './containers/Table';
-
+import MoneyForm from './components/MoneyForm';
 // Endpoint!
 const API = "http://localhost:3000/sushis"
 
@@ -50,8 +50,17 @@ class App extends Component {
     } else {
       null 
     }
-   
+  }
 
+  addMoney = (event) => {
+    event.preventDefault()
+    console.log(event.target[0].value)
+    console.log(this.state.startingCash)
+    let moneyToAdd = parseInt(event.target[0].value)
+    console.log(moneyToAdd)
+    this.setState({
+      startingCash: this.state.startingCash + moneyToAdd
+    })
   }
 
   render() {
@@ -59,6 +68,7 @@ class App extends Component {
       <div className="app">
         <SushiContainer sushi={this.state.startingSushi} moreSushi={this.moreSushi} removeSushi={this.removeSushi}/>
         <Table emptyPlates={this.state.emptyPlates} startingCash={this.state.startingCash}/>
+        <MoneyForm addMoney={this.addMoney}/>
       </div>
     );
   }
